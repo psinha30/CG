@@ -132,12 +132,12 @@ def drawGrid(currentIndex):
 
 # Draw the Present Situation of Grid
 def showPresentGrid(vibrate = 1):
-    r = -blocks
-    c = -blocks
+    r = -blocks # -10
+    c = -blocks # -10
     padding = 2
     for i in range(cols):
-        r += blocks
-        c = -blocks 
+        r += blocks # i=0 r=0
+        c = -blocks  # i=0 c=-10
         for j in range(rows):
             c += blocks
             if grid[i][j].noAtoms == 0:
@@ -190,6 +190,7 @@ def isPlayerInGame():
                 if grid[i][j].color == players[k]:
                     playerScore[k] += grid[i][j].noAtoms
     score = playerScore[:]
+    #print(score)
 
 # GAME OVER
 def gameOver(playerIndex):
