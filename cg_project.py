@@ -4,7 +4,6 @@ import sys
 from math import *
 import tkinter as tk
 from tkinter import simpledialog
-
 # Initialization of Pygame
 pygame.init() #initialisation of pygame as to avoid any errors while importing
 
@@ -194,6 +193,7 @@ def isPlayerInGame():
 
 # GAME OVER
 def gameOver(playerIndex):
+    global out_players
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -202,7 +202,10 @@ def gameOver(playerIndex):
                 if event.key == pygame.K_q:
                     close()
                 if event.key == pygame.K_r:
+                    for i in range(noPlayers):
+                        out_players[i] = 1
                     main()
+                    
 
         text = font.render("Player %d Won!" % (playerIndex + 1), True, white)
         text2 = font.render("Press \'r\' to Reset!", True, white)
@@ -268,6 +271,7 @@ def main():
         display.fill(background)
         # Vibrate the Atoms in their Cells
         vibrate *= -1
+        print(currentPlayer)
         drawGrid(currentPlayer)
         showPresentGrid(vibrate)
         
