@@ -1,19 +1,4 @@
-# -----------------------------------------------------------------------------
-#
-# Chain Reaction
-# Language - Python
-# Modules - pygame, sys, math
-#
-# Controls - Mouse Click
-#
-# By - Jatin Kumar Mandav
-#
-# Website - https://jatinmandav.wordpress.com
-#
-# YouTube Channel - https://www.youtube.com/channel/UCdpf6Lz3V357cIZomPwjuFQ
-# Twitter - @jatinmandav
-#
-# -----------------------------------------------------------------------------
+
 import pygame
 import sys
 from math import *
@@ -273,7 +258,7 @@ def main():
 
         clock.tick(20)
 
-if name==__main__():
+if __name__=='__main__':
     main()# start of game 
 """
 Constant      ASCII   Description
