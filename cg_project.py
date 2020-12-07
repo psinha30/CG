@@ -2,10 +2,8 @@
 import pygame
 import sys
 from math import *
-
-noPlayers = int(input("Enter number of players : "))
-blocks = int(input("Enter the block size :"))
-
+import tkinter as tk
+from tkinter import simpledialog
 
 # Initialization of Pygame
 pygame.init() #initialisation of pygame as to avoid any errors while importing
@@ -28,9 +26,14 @@ playerColor = [red, green, violet, yellow] # no if colours
 
 font = pygame.font.SysFont("Times New Roman", 30)
 
+ROOT = tk.Tk()
 
-
-
+ROOT.withdraw()
+# the input dialog
+USER_INP = simpledialog.askstring(title="",
+                                  prompt="Number of Players(Max 4):")
+noPlayers = int(USER_INP)
+blocks = 40
 pygame.display.set_caption("Chain Reaction %d Player" % noPlayers)
 
 score = []
