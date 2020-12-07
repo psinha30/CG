@@ -122,12 +122,12 @@ def drawGrid(currentIndex):
 
 # Draw the Present Situation of Grid
 def showPresentGrid(vibrate = 1):
-    r = -blocks # -10
-    c = -blocks # -10
+    r = -blocks # -40
+    c = -blocks # -40
     padding = 2
     for i in range(cols):
         r += blocks # i=0 r=0
-        c = -blocks  # i=0 c=-10
+        c = -blocks  # i=0 c=-40
         for j in range(rows):
             c += blocks
             if grid[i][j].noAtoms == 0:
