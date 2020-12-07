@@ -14,7 +14,7 @@ display = pygame.display.set_mode((width, height))
 clock = pygame.time.Clock()
 
 # Colors
-background = (21, 67, 96)
+background = (0,0,0)
 border = (208, 211, 212)
 red = (231, 76, 60)
 white = (244, 246, 247)
@@ -129,11 +129,12 @@ def showPresentGrid(vibrate = 1):
         r += blocks # i=0 r=0
         c = -blocks  # i=0 c=-40
         for j in range(rows):
-            c += blocks
+            c += blocks # c = 0
             if grid[i][j].noAtoms == 0:
                 grid[i][j].color = border
             elif grid[i][j].noAtoms == 1:
                 pygame.draw.ellipse(display, grid[i][j].color, (r + blocks/2 - d/2 + vibrate, c + blocks/2 - d/2, d, d))
+                # surface, color, x1, y1, length, breadth
             elif grid[i][j].noAtoms == 2:
                 pygame.draw.ellipse(display, grid[i][j].color, (r + 5, c + blocks/2 - d/2 - vibrate, d, d))
                 pygame.draw.ellipse(display, grid[i][j].color, (r + d/2 + blocks/2 - d/2 + vibrate, c + blocks/2 - d/2, d, d))
@@ -141,13 +142,16 @@ def showPresentGrid(vibrate = 1):
                 angle = 90
                 x = r + (d/2)*cos(radians(angle)) + blocks/2 - d/2
                 y = c + (d/2)*sin(radians(angle)) + blocks/2 - d/2
-                pygame.draw.ellipse(display, grid[i][j].color, (x - vibrate, y, d, d))
+                # print("1.",x,y)
+                pygame.draw.ellipse(display, grid[i][j].color, (x - vibrate, y, d, d)) # bottom center
                 x = r + (d/2)*cos(radians(angle + 90)) + blocks/2 - d/2
                 y = c + (d/2)*sin(radians(angle + 90)) + 5
-                pygame.draw.ellipse(display, grid[i][j].color, (x + vibrate, y, d, d))
+                # print("2",x,y)
+                pygame.draw.ellipse(display, grid[i][j].color, (x + vibrate, y, d, d)) # top left
                 x = r + (d/2)*cos(radians(angle - 90)) + blocks/2 - d/2
                 y = c + (d/2)*sin(radians(angle - 90)) + 5
-                pygame.draw.ellipse(display, grid[i][j].color, (x - vibrate, y, d, d))
+                # print("3",x,y)
+                pygame.draw.ellipse(display, grid[i][j].color, (x - vibrate, y, d, d)) # top right
 
     pygame.display.update()
 
@@ -251,7 +255,7 @@ def main():
                         i = x//blocks  # 0 to 10
                         j = y//blocks  # 0 to 10
                         if grid[i][j].color == players[currentPlayer] or grid[i][j].color == border :
-                            print(out_players)
+                            # print(out_players)
                             turns += 1
                             addAtom(i, j, players[currentPlayer])
                             currentPlayer += 1
