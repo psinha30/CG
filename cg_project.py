@@ -41,8 +41,10 @@ for i in range(noPlayers):
     score.append(0)
 
 players = []
+out_players  = {}
 for i in range(noPlayers):
     players.append(playerColor[i])
+    out_players[i] = 1
 
 d = blocks//2 - 2
 
@@ -167,8 +169,9 @@ def overFlow(cell, color):
             overFlow(cell.neighbors[m], color)
 
 # Checking if Any Player has WON!
+
 def isPlayerInGame():
-    global score
+    global score, out_players
     playerScore = []
     for i in range(noPlayers):
         playerScore.append(0)
@@ -178,6 +181,11 @@ def isPlayerInGame():
                 if grid[i][j].color == players[k]:
                     playerScore[k] += grid[i][j].noAtoms
     score = playerScore[:]
+    for i in range(len(score)):
+      if score[i]==0:
+        out_players[i] = 0
+      else:
+        out_players[i] = 1
     #print(score)
 
 # GAME OVER
@@ -190,7 +198,7 @@ def gameOver(playerIndex):
                 if event.key == pygame.K_q:
                     close()
                 if event.key == pygame.K_r:
-                    gameLoop()
+                    main()
 
         text = font.render("Player %d Won!" % (playerIndex + 1), True, white)
         text2 = font.render("Press \'r\' to Reset!", True, white)
@@ -216,6 +224,7 @@ def checkWon():
 
 # Main Loop
 def main():
+    global out_players
     initializeGrid() # grid initialisation with score 0 and giving players the clours
     loop = True
 
@@ -232,24 +241,29 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
                     close()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                i = x//blocks  # 0 to 10
-                j = y//blocks  # 0 to 10
-                if grid[i][j].color == players[currentPlayer] or grid[i][j].color == border:
-                    turns += 1
-                    addAtom(i, j, players[currentPlayer])
+            if out_players[currentPlayer]==0:
                     currentPlayer += 1
-                    if currentPlayer >= noPlayers:
-                        currentPlayer = 0
-                if turns >= noPlayers:
-                    isPlayerInGame()
+                    turns += 1
+            else:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    
+                        x, y = pygame.mouse.get_pos()
+                        i = x//blocks  # 0 to 10
+                        j = y//blocks  # 0 to 10
+                        if grid[i][j].color == players[currentPlayer] or grid[i][j].color == border :
+                            print(out_players)
+                            turns += 1
+                            addAtom(i, j, players[currentPlayer])
+                            currentPlayer += 1
+                        if currentPlayer >= len(out_players):
+                            currentPlayer = 0
+                        if turns >= len(out_players):
+                            isPlayerInGame()
                 
         
         display.fill(background)
         # Vibrate the Atoms in their Cells
         vibrate *= -1
-        
         drawGrid(currentPlayer)
         showPresentGrid(vibrate)
         
